@@ -10,6 +10,7 @@ This backup system protects your OpenClaw workspace, agent configurations, and m
 - **Purpose:** Version control for configuration files and documentation
 - **Auto-commit:** Backup script automatically commits changes
 - **Ignore:** Sensitive files excluded via `.gitignore`
+- **GitHub Remote:** https://github.com/ruland16/Openclaw
 
 ### 2. File Backups
 - **Location:** `/home/user/.openclaw-backups/`
@@ -20,9 +21,10 @@ This backup system protects your OpenClaw workspace, agent configurations, and m
   - Config directory (if exists)
 
 ### 3. Backup Scripts
-- `backup.sh` - Creates backups and commits git changes
+- `backup.sh` - Creates backups, commits git changes, and pushes to GitHub
 - `restore.sh` - Interactive restore from backup
-- Both scripts are executable and self-documenting
+- `setup-github-backup.sh` - Configure GitHub authentication and remote
+- All scripts are executable and self-documenting
 
 ## Usage
 
@@ -30,6 +32,12 @@ This backup system protects your OpenClaw workspace, agent configurations, and m
 ```bash
 cd /home/user/.openclaw/workspace
 ./backup.sh
+```
+
+### Setup GitHub Backup
+```bash
+cd /home/user/.openclaw/workspace
+./setup-github-backup.sh
 ```
 
 ### Scheduled Backup (cron)
@@ -85,11 +93,30 @@ cd /home/user/.openclaw/workspace
 3. **Keep credentials separate** - Never commit auth-profiles.json to git
 4. **Monitor backup logs** - Check `/home/user/.openclaw-backups/backup.log`
 
+## GitHub Integration
+
+### Repository: https://github.com/ruland16/Openclaw
+
+### Authentication Options:
+1. **SSH Keys** (recommended)
+   - Generate: `ssh-keygen -t ed25519 -C "openclaw-backup@$(hostname)"`
+   - Add to GitHub: https://github.com/settings/keys
+   - Remote URL: `git@github.com:ruland16/Openclaw.git`
+
+2. **Personal Access Token**
+   - Generate: https://github.com/settings/tokens (repo scope)
+   - Remote URL: `https://<token>@github.com/ruland16/Openclaw.git`
+
+### Automatic Sync:
+- Backup script automatically pushes to GitHub after local backup
+- Failed pushes are logged but don't stop local backup
+
 ## Integration with Multi-Agent System
 
 - **Lui (COO):** Can trigger backups via executive sync
 - **Brains (CMO):** Responsible for memory file integrity
 - **Elon (CTO):** Can enhance backup system with automation
+- **All Agents:** Configuration protected by version control
 
 ## Next Enhancements
 1. Cloud backup integration (AWS S3, Google Drive)
