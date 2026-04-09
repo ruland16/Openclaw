@@ -22,6 +22,10 @@ log "Starting OpenClaw workspace backup..."
 
 # 1. Git commit of workspace changes
 cd "$WORKSPACE_DIR"
+
+# Remove any nested .git directories that cause issues
+find . -name ".git" -type d ! -path "./.git" ! -path "./.git/*" -exec rm -rf {} + 2>/dev/null || true
+
 if git diff --quiet && git diff --cached --quiet; then
     log "No changes to commit in workspace."
 else
@@ -49,7 +53,24 @@ find "$BACKUP_DIR" -name "workspace_backup_*.tar.gz" -mtime +30 -delete 2>/dev/n
 find "$BACKUP_DIR" -name "config_backup_*.tar.gz" -mtime +30 -delete 2>/dev/null || true
 log "Cleaned up backups older than 30 days."
 
-# 5. Show backup status
+# 5. GitHub Sync (if configured)
+if git remote get-url origin >/dev/null 2>&1; then
+    log "GitHub remote configured. Attempting to push..."
+    if git push origin master 2>/dev/null; then
+        log "Successfully pushed to GitHub."
+    else
+        log "Warning: GitHub push failed. Check authentication."
+        log "To set up GitHub sync:"
+        log "  1. Generate SSH key: ssh-keygen -t ed25519 -C \"your-email@example.com\""
+        log "  2. Add to GitHub: https://github.com/settings/keys"
+        log "  3. Update remote: git remote set-url origin git@github.com:ruland16/Openclaw.git"
+    fi
+else
+    log "GitHub remote not configured. To add:"
+    log "  git remote add origin https://github.com/ruland16/Openclaw.git"
+fi
+
+# 6. Show backup status
 BACKUP_COUNT=$(find "$BACKUP_DIR" -name "*.tar.gz" | wc -l)
 log "Backup completed. Total backups: $BACKUP_COUNT"
 log "Backup location: $BACKUP_DIR"
@@ -57,6 +78,11 @@ log "Log file: $LOG_FILE"
 
 echo "=== Backup Summary ==="
 echo "Workspace: $WORKSPACE_DIR"
-echo "Backups: $BACKUP_COUNT files in $BACKUP_DIR"
+echo "Backups: $BACKUP_COUNT files in $BACKSPACE_DIR"
 echo "Latest: $(ls -t "$BACKUP_DIR"/*.tar.gz 2>/dev/null | head -1 | xargs basename 2>/dev/null || echo "None")"
 echo "Log: $LOG_FILE"
+if git remote get-url origin >/dev/null 2>&1; then
+    echo "GitHub: $(git remote get-url origin)"
+else
+    echo "GitHub: Not configured"
+fi

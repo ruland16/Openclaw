@@ -78,6 +78,13 @@ KEY DECISIONS
 - **Rationale:** Immediate fix for agent spawning failures while auth is configured
 - **Impact:** All 8 agents now use DeepSeek until local model auth is properly set up
 
+### 2026-04-09: Backup System Creation
+- **Decision:** Implement comprehensive backup system for OpenClaw workspace
+- **Rationale:** Protect against data loss from configuration changes or system failures
+- **Components:** Git repository + file backups + restore scripts
+- **Location:** `/home/user/.openclaw-backups/` with 30-day retention
+- **Impact:** All agent configurations and memory files now protected with version control
+
 ### 2026-04-09: Agent Renaming
 - **Decision:** Rename all agents with personality-driven codenames
 - **Rationale:** More memorable names for better team identification and collaboration
