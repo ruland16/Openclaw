@@ -1,0 +1,36 @@
+# OpenClaw workspace gitignore
+
+# Sensitive files
+*.env
+*.key
+*.pem
+*.crt
+auth-profiles.json
+config/credentials.json
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.pid
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node/package files
+node_modules/
+package-lock.json
+yarn.lock
+
+# OpenClaw runtime
+.openclaw/cache/
+.openclaw/logs/
+.openclaw/tmp/
+
+# Agent directories (except config)
+agents/*/memory/
+agents/*/logs/
+
+# Memory files (tracked separately in memory/)
+!memory/*.md
