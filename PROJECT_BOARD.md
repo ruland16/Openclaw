@@ -17,17 +17,17 @@ ACTIVE PROJECTS
 ## YouTube Channels
 - Project: Channel Recovery & Growth
  Owner: Buzz
- Status: Not Started
- Next Action: Review existing 2 channels, develop monetization strategy
- Deadline: TBD
- Notes: Focus on reviving existing channels with monetization strategy
+ Status: In Progress
+ Next Action: Begin channel discovery process, gather analytics on existing 2 channels
+ Deadline: 2026-04-12
+ Notes: Buzz initialization complete, strategy framework established, templates created
 
 - Project: DJ Detective Content Pipeline
  Owner: Buzz + Lens
- Status: Not Started
- Next Action: Create content strategy and production pipeline
- Deadline: TBD
- Notes: Pipeline orchestration with tool/skill usage focus
+ Status: In Progress
+ Next Action: Buzz to begin concept development, coordinate with Lens on production workflow
+ Deadline: 2026-04-16
+ Notes: Both Buzz and Lens initialized, collaboration protocol established, concept development phase
 
 ## Shopify Store
 - Project: Store Optimization
@@ -37,27 +37,34 @@ ACTIVE PROJECTS
  Deadline: TBD
  Notes: Store optimization, campaigns, and analytics focus
 
-- Project: Marketing Automation
- Owner: Goldie + Elon
+- Project: Marketing Automation (Strategy & Campaigns)
+ Owner: Goldie
  Status: Not Started
- Next Action: Develop automation workflows and technical implementation plan
+ Next Action: Analyze current store performance and define marketing requirements
  Deadline: TBD
- Notes: Technical innovation combined with marketing expertise
+ Notes: Marketing strategy focus, coordination with Elon for technical implementation
 
 ## IT Projects
 - Project: Dishwasher Management App
  Owner: Elon
- Status: Not Started
- Next Action: Define requirements and technical specifications
- Deadline: TBD
- Notes: Code review, tooling, and IT project guidance emphasis
+ Status: In Progress
+ Next Action: Finalize technical architecture and create development roadmap
+ Deadline: 2026-04-30 (MVP target)
+ Notes: ✅ Technical specification completed (10,286 bytes), IoT + AI architecture defined, 30-day MVP timeline established
 
-- Project: Second IT Project
+- Project: Shopify Marketing Automation (Technical Implementation)
+ Owner: Elon + Goldie
+ Status: In Progress
+ Next Action: Complete technical assessment and choose implementation approach
+ Deadline: 2026-04-16 (Phase 1 completion)
+ Notes: ✅ Technical assessment framework created, collaboration with Goldie established, three implementation options evaluated
+
+- Project: Agent Tooling Development
  Owner: Elon
- Status: Not Started
- Next Action: Identify next priority IT project
- Deadline: TBD
- Notes: Rapid prototyping and technical innovation focus
+ Status: In Progress
+ Next Action: Survey all Chiefs for tooling needs and build first tool
+ Deadline: 2026-04-12 (First tool deployment)
+ Notes: ✅ Tooling survey framework created, code review process established, analytics fetcher as first priority tool
 
 ## New Business Development
 - Project: Opportunity Scouting
