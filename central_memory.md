@@ -73,14 +73,11 @@ KEY DECISIONS
 - **Decision:** Use local models (Gemma 4, Qwen 3.5) for specialized domain work
 - **Rationale:** Leverage local inference for cost efficiency and privacy
 
-### 2026-04-09: Ollama Auth Configuration
-- **Decision:** Configure Ollama authentication for local model agents
-- **Action:** Added Ollama auth profiles to agent configurations
-- **Impact:** Local models (Gemma 4, Qwen 3.5) now properly authenticated
-- **Models restored:**
-  - Brains, Lens, Elon → Gemma 4 (local)
-  - Buzz, Goldie, June → Qwen 3.5 (local)
-  - Lui, Warren → DeepSeek (cloud)
+### 2026-04-09: Ollama Performance Issues
+- **Issue:** Ollama local models timing out during inference
+- **Diagnosis:** Models load but generation requests timeout (possibly system resource constraints)
+- **Temporary solution:** All agents switched back to DeepSeek
+- **Next steps:** Debug Ollama performance separately, consider smaller models or optimized configurations
 
 ### 2026-04-09: Backup System Creation
 - **Decision:** Implement comprehensive backup system for OpenClaw workspace

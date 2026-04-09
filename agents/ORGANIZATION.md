@@ -47,13 +47,13 @@ Total Agents: 8
 | Agent | Role | Model | Focus |
 |-------|------|-------|-------|
 | Lui | Orchestrator / COO (Leader) | DeepSeek (deepseek/deepseek-chat) | Task routing, executive sync, coordination |
-| Brains | Chief Memory Officer | Gemma 4 (local) | Memory hygiene, structure, archival |
-| Buzz | Chief Creative Officer (YouTube) | Qwen 3.5 (local) | Content strategy, creation, audience growth |
-| Lens | Media Producer | Gemma 4 (local) | Technical execution, editing, automation |
-| Elon | Chief Technical Officer | Gemma 4 (local) | Technical innovation, rapid prototyping |
-| Goldie | Marketing Chief | Qwen 3.5 (local) | E-commerce, marketing, revenue growth |
+| Brains | Chief Memory Officer | DeepSeek (deepseek/deepseek-chat) | Memory hygiene, structure, archival |
+| Buzz | Chief Creative Officer (YouTube) | DeepSeek (deepseek/deepseek-chat) | Content strategy, creation, audience growth |
+| Lens | Media Producer | DeepSeek (deepseek/deepseek-chat) | Technical execution, editing, automation |
+| Elon | Chief Technical Officer | DeepSeek (deepseek/deepseek-chat) | Technical innovation, rapid prototyping |
+| Goldie | Marketing Chief | DeepSeek (deepseek/deepseek-chat) | E-commerce, marketing, revenue growth |
 | Warren | Strategy Chief | DeepSeek (deepseek/deepseek-chat) | Long-term strategy, value evaluation |
-| June | Personal Life Manager | Qwen 3.5 (local) | Health, relationships, personal organization |
+| June | Personal Life Manager | DeepSeek (deepseek/deepseek-chat) | Health, relationships, personal organization |
 
 ## Communication Flow
 1. **User → Lui**: All user requests flow through Lui (primary interface)
