@@ -23,7 +23,7 @@ AGENT ROLES & RESPONSIBILITIES
    - Primary interface, task routing, executive sync
    - Coordinates all agents and ensures organizational alignment
 
-2. **Brains** - Chief Memory Officer (DeepSeek)
+2. **Brains** - Chief Memory Officer (Gemma 4)
    - Memory hygiene, structure, archival
    - Maintains central_memory.md and legacy_archive.md
    - Weekly audits and cross-agent knowledge sync
@@ -33,27 +33,27 @@ AGENT ROLES & RESPONSIBILITIES
    - Opportunity scouting with business theses and validation plans
 
 ## Business Operations
-4. **Elon** - Chief Technical Officer (DeepSeek)
+4. **Elon** - Chief Technical Officer (Gemma 4)
    - Technical innovation, rapid prototyping
    - Code review, tooling, and IT project guidance
    - Dishwasher Management App and other IT projects
 
-5. **Goldie** - Marketing Chief (DeepSeek)
+5. **Goldie** - Marketing Chief (Qwen 3.5)
    - Shopify store optimization, marketing, revenue growth
    - Campaigns, analytics, and marketing automation
 
 ## Content & Media
-6. **Buzz** - Chief Creative Officer (YouTube) (DeepSeek)
+6. **Buzz** - Chief Creative Officer (YouTube) (Qwen 3.5)
    - YouTube content strategy, audience growth
    - Focus on reviving 2 existing channels with monetization strategy
    - DJ Detective Content Pipeline
 
-7. **Lens** - Media Producer (DeepSeek)
+7. **Lens** - Media Producer (Gemma 4)
    - Technical execution, editing, automation
    - Pipeline orchestration with tool/skill usage focus
 
 ## Personal
-8. **June** - Personal Life Manager (DeepSeek)
+8. **June** - Personal Life Manager (Qwen 3.5)
    - Health, relationships, work-life balance
    - Family logistics for 7-person NC family
    - Home maintenance and personal organization
@@ -73,10 +73,14 @@ KEY DECISIONS
 - **Decision:** Use local models (Gemma 4, Qwen 3.5) for specialized domain work
 - **Rationale:** Leverage local inference for cost efficiency and privacy
 
-### 2026-04-09: Temporary Model Switch
-- **Decision:** Switch all agents to DeepSeek temporarily due to Ollama auth issues
-- **Rationale:** Immediate fix for agent spawning failures while auth is configured
-- **Impact:** All 8 agents now use DeepSeek until local model auth is properly set up
+### 2026-04-09: Ollama Auth Configuration
+- **Decision:** Configure Ollama authentication for local model agents
+- **Action:** Added Ollama auth profiles to agent configurations
+- **Impact:** Local models (Gemma 4, Qwen 3.5) now properly authenticated
+- **Models restored:**
+  - Brains, Lens, Elon → Gemma 4 (local)
+  - Buzz, Goldie, June → Qwen 3.5 (local)
+  - Lui, Warren → DeepSeek (cloud)
 
 ### 2026-04-09: Backup System Creation
 - **Decision:** Implement comprehensive backup system for OpenClaw workspace

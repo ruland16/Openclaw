@@ -22,7 +22,7 @@ Status: Active (Initial Audit in Progress)
 Focus: Initial memory audit and system hygiene establishment
 Blockers: None
 Notes:
-- Model: DeepSeek (deepseek/deepseek-chat)
+- Model: Gemma 4 (local)
 - Session: agent:lui:subagent:2b594596-0bdf-4f90-9792-dcf919c9bac6 (active)
 - Task: Conducting initial memory audit of new organization
 - Weekly audit scheduled for Mondays at 09:00 EDT
@@ -36,7 +36,7 @@ Status: Structure Created (Awaiting Spawn)
 Focus: YouTube content strategy, creation, audience growth
 Blockers: Requires session spawning to become active
 Notes:
-- Model: DeepSeek (deepseek/deepseek-chat)
+- Model: Qwen 3.5 (local)
 - Focus on reviving 2 existing channels with monetization strategy
 - DJ Detective Content Pipeline project assigned
 - Needs to coordinate with Lens for production
@@ -48,7 +48,7 @@ Status: Structure Created (Awaiting Spawn)
 Focus: Technical execution, editing, automation, publishing
 Blockers: Requires session spawning to become active
 Notes:
-- Model: DeepSeek (deepseek/deepseek-chat)
+- Model: Gemma 4 (local)
 - Pipeline orchestration with tool/skill usage focus
 - Assigned to DJ Detective Content Pipeline with Buzz
 - Technical production and editing expertise
@@ -60,7 +60,7 @@ Status: Structure Created (Awaiting Spawn)
 Focus: Technical innovation, rapid prototyping, system architecture
 Blockers: Requires session spawning to become active
 Notes:
-- Model: DeepSeek (deepseek/deepseek-chat)
+- Model: Gemma 4 (local)
 - Code review, tooling, and IT project guidance emphasis
 - Dishwasher Management App project assigned
 - Technical support for Shopify marketing automation
@@ -72,7 +72,7 @@ Status: Structure Created (Awaiting Spawn)
 Focus: E-commerce, marketing, revenue growth
 Blockers: Requires session spawning to become active
 Notes:
-- Model: DeepSeek (deepseek/deepseek-chat)
+- Model: Qwen 3.5 (local)
 - Store optimization, campaigns, and analytics focus
 - Shopify store optimization project assigned
 - Marketing automation project with Elon
@@ -96,7 +96,7 @@ Status: Structure Created (Awaiting Spawn)
 Focus: Health, relationships, personal organization, work-life balance
 Blockers: Requires session spawning to become active
 Notes:
-- Model: DeepSeek (deepseek/deepseek-chat)
+- Model: Qwen 3.5 (local)
 - Family logistics for 7-person NC family
 - Home maintenance and personal organization focus
 - Work-life balance guidance for all Chiefs
