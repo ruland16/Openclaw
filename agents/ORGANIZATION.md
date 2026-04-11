@@ -44,16 +44,22 @@ Total Agents: 8
 
 ## Agent Configuration Summary
 
-| Agent | Role | Model | Focus |
-|-------|------|-------|-------|
-| Lui | Orchestrator / COO (Leader) | DeepSeek (deepseek/deepseek-chat) | Task routing, executive sync, coordination |
-| Brains | Chief Memory Officer | DeepSeek (deepseek/deepseek-chat) | Memory hygiene, structure, archival |
-| Buzz | Chief Creative Officer (YouTube) | DeepSeek (deepseek/deepseek-chat) | Content strategy, creation, audience growth |
-| Lens | Media Producer | DeepSeek (deepseek/deepseek-chat) | Technical execution, editing, automation |
-| Elon | Chief Technical Officer | DeepSeek (deepseek/deepseek-chat) | Technical innovation, rapid prototyping |
-| Goldie | Marketing Chief | DeepSeek (deepseek/deepseek-chat) | E-commerce, marketing, revenue growth |
-| Warren | Strategy Chief | DeepSeek (deepseek/deepseek-chat) | Long-term strategy, value evaluation |
-| June | Personal Life Manager | DeepSeek (deepseek/deepseek-chat) | Health, relationships, personal organization |
+| Agent | Role | OpenRouter Model | Cost Tier | Focus |
+|-------|------|------------------|-----------|-------|
+| Lui | Orchestrator / COO (Leader) | `deepseek/deepseek-chat` | Low-cost ($0.00000014/$0.00000028) | Task routing, executive sync, coordination |
+| Warren | Strategy Chief | `deepseek/deepseek-chat` | Low-cost ($0.00000014/$0.00000028) | Long-term strategy, value evaluation |
+| Brains | Chief Memory Officer | `google/gemma-4-31b-it:free` | **FREE** | Memory hygiene, structure, archival |
+| Buzz | Chief Creative Officer (YouTube) | `qwen/qwen3.5-9b` | Ultra-low ($0.00000005/$0.00000015) | Content strategy, creation, audience growth |
+| Lens | Media Producer | `amazon/nova-micro-v1` | Ultra-low ($0.000000035/$0.00000014) | Technical execution, editing, automation |
+| Elon | Chief Technical Officer | `qwen/qwen3-coder:free` | **FREE** | Technical innovation, rapid prototyping |
+| Goldie | Marketing Chief | `google/gemma-4-26b-a4b-it:free` | **FREE** | E-commerce, marketing, revenue growth |
+| June | Personal Life Manager | `meta-llama/llama-3.3-70b-instruct:free` | **FREE** | Health, relationships, personal organization |
+
+### Cost Optimization Strategy:
+- **4 FREE agents**: Background/stable tasks (Brains, Elon, Goldie, June)
+- **2 Ultra-low cost**: Creative/media tasks (Buzz, Lens)
+- **2 Low-cost**: Critical coordination (Lui, Warren)
+- **Estimated monthly cost**: $0.24-0.60 (60-70% savings vs all DeepSeek)
 
 ## Communication Flow
 1. **User → Lui**: All user requests flow through Lui (primary interface)
