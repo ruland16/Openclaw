@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test WebSocket Connection</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        #log { background: #f0f0f0; padding: 10px; margin: 10px 0; height: 500px; overflow-y: auto; }
+        .error { color: red; }
+        .success { color: green; }
+        .warning { color: orange; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Connection Test</h1>
+    <div>
+        <button onclick="testSimpleDashboard()">Test Simple Dashboard Code</button>
+        <button onclick="testDirect()">Test Direct Connection</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+    <div id="log"></div>
+    
+    <script>
+        const log = document.getElementById('log');
+        
+        function addLog(message, className = '') {
+            const entry = document.createElement('div');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            if (className) entry.className = className;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+            console.log(message);
+        }
+        
+        function clearLog() {
+            log.innerHTML = '';
+        }
+        
+        function testSimpleDashboard() {
+            addLog('=== Testing Simple Dashboard WebSocket Code ===', 'warning');
+            
+            // Copy the exact code from simple-dashboard.html
+            class TestDashboard {
+                constructor() {
+                    this.ws = null;
+                }
+                
+                connectWebSocket() {
+                    addLog('Connecting WebSocket...');
+                    this.updateConnection(false);
+                    
+                    // Try multiple URLs
+                    const urls = ['ws://localhost:3000', 'ws://127.0.0.1:3000'];
+                    let currentUrl = 0;
+                    
+                    const tryConnect = () => {
+                        if (currentUrl >= urls.length) {
+                            addLog('All WebSocket URLs failed', 'error');
+                            return;
+                        }
+                        
+                        const url = urls[currentUrl];
+                        addLog(`Trying: ${url}`);
+                        
+                        try {
+                            this.ws = new WebSocket(url);
+                            
+                            this.ws.onopen = () => {
+                                addLog(`✅ Connected to ${url}`, 'success');
+                                this.updateConnection(true);
+                                
+                                // Subscribe to updates
+                                this.ws.send(JSON.stringify({
+                                    type: 'subscribe',
+                                    timestamp: new Date().toISOString()
+                                }));
+                            };
+                            
+                            this.ws.onmessage = (event) => {
+                                try {
+                                    const data = JSON.parse(event.data);
+                                    addLog(`📨 Message type: ${data.type}`);
+                                    
+                                    if (data.type === 'connection_established') {
+                                        addLog(`Connection established: ${data.message}`);
+                                    } else if (data.type === 'agent_status_updated') {
+                                        addLog(`Agent status updated: ${data.agentId} -> ${data.status}`);
+                                    }
+                                } catch (e) {
+                                    addLog(`Raw message: ${event.data}`);
+                                }
+                            };
+                            
+                            this.ws.onclose = () => {
+                                addLog('WebSocket closed');
+                                this.updateConnection(false);
+                                currentUrl++;
+                                setTimeout(tryConnect, 2000);
+                            };
+                            
+                            this.ws.onerror = () => {
+                                addLog(`WebSocket error for ${url}`, 'error');
+                                this.updateConnection(false);
+                                currentUrl++;
+                                setTimeout(tryConnect, 2000);
+                            };
+                            
+                        } catch (error) {
+                            addLog(`Failed to create WebSocket: ${error}`, 'error');
+                            currentUrl++;
+                            setTimeout(tryConnect, 2000);
+                        }
+                    };
+                    
+                    tryConnect();
+                }
+                
+                updateConnection(connected) {
+                    addLog(`Connection status: ${connected ? 'Connected' : 'Disconnected'}`);
+                }
+            }
+            
+            const dashboard = new TestDashboard();
+            dashboard.connectWebSocket();
+        }
+        
+        function testDirect() {
+            addLog('=== Testing Direct WebSocket Connection ===', 'warning');
+            
+            addLog(`Creating WebSocket to ws://localhost:3000`);
+            
+            try {
+                const ws = new WebSocket('ws://localhost:3000');
+                
+                ws.onopen = () => {
+                    addLog('✅ WebSocket opened successfully', 'success');
+                    addLog(`ReadyState: ${ws.readyState} (OPEN = 1)`);
+                    
+                    // Send a test message
+                    ws.send(JSON.stringify({
+                        type: 'test',
+                        message: 'Hello from direct test'
+                    }));
+                };
+                
+                ws.onmessage = (event) => {
+                    addLog(`📨 Received: ${event.data}`);
+                };
+                
+                ws.onclose = (event) => {
+                    addLog(`❌ WebSocket closed: code=${event.code}, reason=${event.reason}`);
+                };
+                
+                ws.onerror = (event) => {
+                    addLog(`❌ WebSocket error occurred`, 'error');
+                };
+                
+                // Check status after 3 seconds
+                setTimeout(() => {
+                    addLog(`After 3s, readyState: ${ws.readyState}`);
+                    if (ws.readyState === WebSocket.CONNECTING) {
+                        addLog('WebSocket is still connecting after 3 seconds', 'warning');
+                    } else if (ws.readyState !== WebSocket.OPEN) {
+                        addLog('WebSocket failed to open', 'error');
+                    }
+                }, 3000);
+                
+            } catch (error) {
+                addLog(`❌ Exception: ${error.message}`, 'error');
+            }
+        }
+        
+        // Run tests on load
+        window.addEventListener('load', () => {
+            addLog('Page loaded');
+            addLog(`Location: ${window.location.href}`);
+            addLog(`Host: ${window.location.host}`);
+            addLog(`Protocol: ${window.location.protocol}`);
+            
+            // Auto-run direct test after 1 second
+            setTimeout(testDirect, 1000);
+        });
+    </script>
+</body>
+</html>

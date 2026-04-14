@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ultra Simple Dashboard Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .connected { background: #d4edda; color: #155724; }
+        .disconnected { background: #f8d7da; color: #721c24; }
+        #log { background: #f8f9fa; padding: 10px; border-radius: 5px; height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Ultra Simple Dashboard Test</h1>
+    
+    <div id="status" class="disconnected">
+        Status: Disconnected
+    </div>
+    
+    <button onclick="connectWebSocket()">Connect WebSocket</button>
+    <button onclick="testAPI()">Test API</button>
+    <button onclick="clearLog()">Clear Log</button>
+    
+    <h3>Console Log:</h3>
+    <div id="log"></div>
+    
+    <script>
+        let ws = null;
+        
+        function log(msg) {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(msg);
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        function updateStatus(connected) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = connected ? 'connected' : 'disconnected';
+            statusDiv.textContent = `Status: ${connected ? 'Connected' : 'Disconnected'}`;
+        }
+        
+        function connectWebSocket() {
+            log('Attempting WebSocket connection...');
+            updateStatus(false);
+            
+            if (ws) {
+                ws.close();
+                ws = null;
+            }
+            
+            // Try multiple WebSocket URLs
+            const urls = [
+                'ws://localhost:3000',
+                'ws://127.0.0.1:3000',
+                `ws://${window.location.hostname}:3000`
+            ];
+            
+            let currentUrlIndex = 0;
+            
+            const tryConnect = () => {
+                if (currentUrlIndex >= urls.length) {
+                    log('All WebSocket URLs failed');
+                    return;
+                }
+                
+                const url = urls[currentUrlIndex];
+                log(`Trying: ${url}`);
+                
+                try {
+                    ws = new WebSocket(url);
+                    
+                    ws.onopen = () => {
+                        log(`✅ SUCCESS: Connected to ${url}`);
+                        updateStatus(true);
+                        
+                        // Send a test message
+                        setTimeout(() => {
+                            if (ws.readyState === WebSocket.OPEN) {
+                                ws.send(JSON.stringify({ type: 'ping' }));
+                                log('Sent ping message');
+                            }
+                        }, 500);
+                    };
+                    
+                    ws.onmessage = (event) => {
+                        try {
+                            const data = JSON.parse(event.data);
+                            log(`📨 Received: ${data.type}`);
+                            
+                            if (data.type === 'connection_established') {
+                                log(`✅ Server says: ${data.message}`);
+                            } else if (data.type === 'pong') {
+                                log('🏓 Got pong response');
+                            }
+                        } catch (e) {
+                            log(`📨 Raw: ${event.data}`);
+                        }
+                    };
+                    
+                    ws.onclose = () => {
+                        log('❌ Connection closed');
+                        updateStatus(false);
+                        currentUrlIndex++;
+                        setTimeout(tryConnect, 2000);
+                    };
+                    
+                    ws.onerror = () => {
+                        log(`❌ Error connecting to ${url}`);
+                        updateStatus(false);
+                        currentUrlIndex++;
+                        setTimeout(tryConnect, 2000);
+                    };
+                    
+                } catch (error) {
+                    log(`❌ Exception: ${error.message}`);
+                    currentUrlIndex++;
+                    setTimeout(tryConnect, 2000);
+                }
+            };
+            
+            tryConnect();
+        }
+        
+        async function testAPI() {
+            log('Testing API endpoints...');
+            
+            try {
+                // Test /api/agents
+                const response = await fetch('/api/agents');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const data = await response.json();
+                log(`✅ API Success: ${data.count} agents`);
+                
+                // Display agents
+                data.agents.forEach(agent => {
+                    log(`   🤖 ${agent.name} - ${agent.role} (${agent.status})`);
+                });
+                
+            } catch (error) {
+                log(`❌ API Error: ${error.message}`);
+            }
+        }
+        
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            log('Page loaded. Testing API...');
+            testAPI();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "clawrouter": {
+      "version": "0.12.146",
+      "installedAt": 1775874560923
+    },
+    "openclaw-skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1776002641216
+    },
+    "self-improving": {
+      "version": "1.2.16",
+      "installedAt": 1776002641469
+    }
+  }
+}

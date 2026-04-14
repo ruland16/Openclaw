@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <div id="status">Not connected</div>
+    <div id="messages"></div>
+    
+    <script>
+        console.log('Starting WebSocket test...');
+        
+        // Try different URLs
+        const urls = [
+            'ws://localhost:3000',
+            'ws://127.0.0.1:3000',
+            `ws://${window.location.hostname}:3000`,
+            `ws://${window.location.host}`
+        ];
+        
+        console.log('Available URLs:', urls);
+        console.log('Current location:', window.location.href);
+        
+        let ws = null;
+        let connected = false;
+        
+        function connect(url) {
+            console.log(`Trying to connect to: ${url}`);
+            
+            try {
+                ws = new WebSocket(url);
+                
+                ws.onopen = () => {
+                    console.log('✅ WebSocket connected!');
+                    document.getElementById('status').textContent = `Connected to ${url}`;
+                    document.getElementById('status').style.color = 'green';
+                    connected = true;
+                    
+                    // Send a message
+                    ws.send(JSON.stringify({
+                        type: 'hello',
+                        message: 'Test from browser'
+                    }));
+                };
+                
+                ws.onmessage = (event) => {
+                    console.log('📨 Message received:', event.data);
+                    const msgDiv = document.createElement('div');
+                    msgDiv.textContent = event.data;
+                    document.getElementById('messages').appendChild(msgDiv);
+                };
+                
+                ws.onclose = () => {
+                    console.log('❌ WebSocket closed');
+                    document.getElementById('status').textContent = 'Disconnected';
+                    document.getElementById('status').style.color = 'red';
+                    connected = false;
+                };
+                
+                ws.onerror = (error) => {
+                    console.log('❌ WebSocket error:', error);
+                    document.getElementById('status').textContent = `Error: ${url}`;
+                    document.getElementById('status').style.color = 'orange';
+                };
+                
+            } catch (error) {
+                console.log(`❌ Failed to create WebSocket for ${url}:`, error);
+            }
+        }
+        
+        // Try each URL
+        for (const url of urls) {
+            connect(url);
+            // Wait a bit before trying next
+            setTimeout(() => {
+                if (!connected && ws && ws.readyState !== WebSocket.OPEN) {
+                    console.log(`${url} failed, trying next...`);
+                }
+            }, 1000);
+        }
+        
+        // Check final status after 3 seconds
+        setTimeout(() => {
+            console.log('Final WebSocket state:', ws ? ws.readyState : 'no ws');
+            if (!connected) {
+                document.getElementById('status').textContent = 'All connection attempts failed';
+                document.getElementById('status').style.color = 'red';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

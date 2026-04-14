@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .connected { color: green; }
+        .disconnected { color: red; }
+        #log { background: #f0f0f0; padding: 10px; margin: 10px 0; height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Connection Test</h1>
+    <div>
+        Connection Status: <span id="status" class="disconnected">Disconnected</span>
+    </div>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+    
+    <div id="log"></div>
+    
+    <script>
+        let ws = null;
+        const log = document.getElementById('log');
+        
+        function addLog(message) {
+            const entry = document.createElement('div');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function connect() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                addLog('Already connected');
+                return;
+            }
+            
+            // Try different WebSocket URLs
+            const urls = [
+                'ws://localhost:3000',
+                'ws://127.0.0.1:3000',
+                `ws://${window.location.hostname}:3000`,
+                `ws://${window.location.host}`
+            ];
+            
+            addLog(`Trying to connect...`);
+            
+            for (const url of urls) {
+                try {
+                    addLog(`Attempting: ${url}`);
+                    ws = new WebSocket(url);
+                    
+                    ws.onopen = () => {
+                        document.getElementById('status').className = 'connected';
+                        document.getElementById('status').textContent = 'Connected';
+                        addLog(`✅ Connected to ${url}`);
+                        
+                        // Send a test message
+                        ws.send(JSON.stringify({
+                            type: 'test',
+                            message: 'Hello from test client'
+                        }));
+                    };
+                    
+                    ws.onmessage = (event) => {
+                        addLog(`📨 Received: ${event.data}`);
+                    };
+                    
+                    ws.onclose = () => {
+                        document.getElementById('status').className = 'disconnected';
+                        document.getElementById('status').textContent = 'Disconnected';
+                        addLog('❌ Connection closed');
+                    };
+                    
+                    ws.onerror = (error) => {
+                        addLog(`❌ Error: ${error.type} - ${url} failed`);
+                    };
+                    
+                    // If we successfully created the WebSocket, break the loop
+                    break;
+                    
+                } catch (error) {
+                    addLog(`❌ Failed to create WebSocket for ${url}: ${error.message}`);
+                }
+            }
+        }
+        
+        function disconnect() {
+            if (ws) {
+                ws.close();
+                ws = null;
+                addLog('Disconnected manually');
+            }
+        }
+        
+        // Auto-connect on page load
+        window.addEventListener('load', () => {
+            addLog('Page loaded');
+            setTimeout(connect, 1000);
+        });
+    </script>
+</body>
+</html>

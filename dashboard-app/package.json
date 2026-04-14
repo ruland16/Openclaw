@@ -1,0 +1,32 @@
+{
+  "name": "mission-control-dashboard",
+  "version": "1.0.0",
+  "description": "Mission Control Dashboard for OpenClaw Multi-Agent Organization",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "openclaw",
+    "dashboard",
+    "mission-control",
+    "agent-management"
+  ],
+  "author": "Lui (COO) with Team: Elon, Lens, Brains, Warren, Buzz, Goldie, June",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
