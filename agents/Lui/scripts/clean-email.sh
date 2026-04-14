@@ -32,7 +32,7 @@ SENDERS=(
   "from:usps.com"
   "from:google.com"
   "from:kiaconnect.com OR from:owners.kia.com OR from:kia.com"
-  "from:ncvirtualacademy.org OR from:ncvps.org"
+  "from:ncvacademy.org OR from:ncvirtualacademy.org OR from:ncvps.org"
 )
 
 LABELS=(
