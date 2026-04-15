@@ -1,5 +1,34 @@
 # TOOLS.md - June's Personal Configuration
 
+## Email Configuration
+
+**Primary Tool:** `gog` CLI (Google Workspace)
+- **Account:** ruland16@gmail.com
+- **Auth:** File-backed keyring with `GOG_KEYRING_BACKEND=file` and `GOG_KEYRING_PASSWORD` env vars
+- **Access:** June has read/write access to Gmail for cleanup tasks
+
+**Email Cleanup Script:**
+- **Location:** `/home/user/.openclaw/workspace/agents/Lui/scripts/clean-email.sh`
+- **Usage:** `bash /home/user/.openclaw/workspace/agents/Lui/scripts/clean-email.sh [--dry-run]`
+- **What it does:** Trashes emails from known junk senders (Vista Auction, Amazon, AliExpress, USPS, Google, Kia Connect, NC Virtual Academy)
+- **Configured for:** ruland16@gmail.com
+
+**Manual gog commands:**
+```bash
+export GOG_KEYRING_BACKEND=file
+export GOG_KEYRING_PASSWORD='SecureKeyring123!'
+export GOG_ACCOUNT=ruland16@gmail.com
+
+# Search inbox
+gog gmail search 'in:inbox' --max 20 --json
+
+# Trash specific thread
+gog gmail trash <threadId> --no-input
+
+# Archive thread
+gog gmail archive <threadId> --no-input
+```
+
 ## Family Information
 *Note: Fill in specific details as you learn them*
 

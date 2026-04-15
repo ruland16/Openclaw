@@ -31,8 +31,9 @@ SENDERS=(
   "from:aliexpress.com"
   "from:usps.com"
   "from:google.com"
-  "from:kiaconnect.com OR from:owners.kia.com OR from:kia.com"
+  "from:kiaconnect.com OR from:owners.kia.com OR from:kia.com OR from:no-reply@notification.kiausa.com"
   "from:ncvacademy.org OR from:ncvirtualacademy.org OR from:ncvps.org"
+  "from:notifications@instructure.com"
 )
 
 LABELS=(
@@ -43,6 +44,7 @@ LABELS=(
   "Google"
   "Kia Connect"
   "NC Virtual Academy"
+  "Instructure Notifications"
 )
 
 TOTAL_TRASHED=0
