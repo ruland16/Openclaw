@@ -19,9 +19,9 @@
 - **Due Date:** 2026-04-13
 
 ### Task: Opportunity Scouting Kick-off
-- **Status:** To Do
+- **Status:** In Progress
 - **Owner:** Warren
-- **Description:** Begin initial research for one new online business opportunity. Deliver a one-paragraph summary of the idea and its potential to Lui.
+- **Description:** Continuous scouting for online business opportunities. First idea: AI-Powered Slow Fashion Marketplace. Validation plan outlined (7-14 days).
 - **Priority:** High
 - **Due Date:** 2026-04-14
 
